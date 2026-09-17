@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="A calmer classroom starts here. Measure classroom volume and track time above your chosen noise limit, without recording audio.">
+  <title>Noise Timer</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="landing" class="landing">
+    <header class="landing-nav">
+      <a class="brand" href="./" aria-label="Noise Timer home"><span class="brand-icon" aria-hidden="true">▥</span>Noise Timer<span class="brand-period">.</span></a>
+      <span class="nav-note">A little quieter. A lot more focus.</span>
+    </header>
+    <section class="landing-hero" aria-labelledby="landing-title">
+      <div class="landing-copy">
+        <p class="landing-kicker"><span aria-hidden="true"></span> Made by a Year 8 student</p>
+        <h1 id="landing-title">Make room<br>for <em>focus.</em></h1>
+        <p class="landing-intro">Less noise. More learning. Noise Timer helps your class see its volume and tracks time above the noise limit you choose.</p>
+        <button id="launchTimer" class="launch-button">Start Noise Timer <span aria-hidden="true">↗</span></button>
+        <p class="launch-note">No sign-up. Just open, set your limit, and start.</p>
+      </div>
+      <div class="preview-scene" aria-label="Illustration of the Noise Timer interface">
+        <div class="preview-orbit" aria-hidden="true"></div>
+        <div class="timer-preview">
+          <div class="preview-top"><span class="preview-label">NOISE TIMER</span><span class="preview-tag">PREVIEW</span></div>
+          <div class="preview-status"><span></span> A little calm goes a long way</div>
+          <div class="preview-bars" aria-hidden="true"><i style="--bar:18%"></i><i style="--bar:28%"></i><i style="--bar:40%"></i><i style="--bar:25%"></i><i style="--bar:50%"></i><i style="--bar:66%"></i><i style="--bar:45%"></i><i style="--bar:32%"></i><i style="--bar:60%"></i><i style="--bar:80%"></i><i style="--bar:50%"></i><i style="--bar:36%"></i><i style="--bar:65%"></i><i style="--bar:48%"></i><i style="--bar:28%"></i><i style="--bar:42%"></i><i style="--bar:62%"></i><i style="--bar:35%"></i><i style="--bar:23%"></i><i style="--bar:40%"></i><i style="--bar:26%"></i><i style="--bar:16%"></i></div>
+          <div class="preview-meter" aria-hidden="true"><span></span><i></i></div>
+          <div class="preview-meter-label"><span>Room volume</span><span>Your limit</span></div>
+          <div class="preview-time">00:00<span>.0</span></div>
+          <p class="preview-caption">TOTAL NOISE TIME</p>
+          <div class="preview-pill">✓ &nbsp; Noise within limit</div>
+        </div>
+        <div class="floating-note"><span aria-hidden="true">✦</span> Small tool. Calmer classrooms.</div>
+      </div>
+    </section>
+    <section class="landing-steps" aria-label="How Noise Timer works">
+      <article><span class="step-number">01</span><h2>Set the tone</h2><p>Choose a noise limit that suits your room and the activity.</p></article>
+      <article><span class="step-number">02</span><h2>Give it a moment</h2><p>Counting starts immediately by default. Add a delay anytime to let sudden sounds pass.</p></article>
+      <article><span class="step-number">03</span><h2>See the bigger picture</h2><p>Track accumulated noise time and finish with a simple session summary.</p></article>
+    </section>
+    <footer class="landing-footer"><div class="privacy-symbol" aria-hidden="true">✓</div><p><strong>Volume only. Conversations stay private.</strong><br>Noise Timer measures volume only. It does not record, save, or upload audio.</p><span class="footer-note">Built for your everyday classroom.</span></footer>
+  </main>
+  <main id="timerScreen" class="shell" hidden>
+    <header class="topbar">
+      <div><p class="eyebrow">CLASSROOM TOOL</p><h1 id="timerTitle" tabindex="-1">Noise Timer</h1></div>
+      <button id="pipBtn" class="ghost small" title="Keep the timer visible while showing a video">Picture in Picture</button>
+      <button id="fullscreenBtn" class="ghost small">Full Screen</button>
+    </header>
+
+    <p id="pipMessage" class="pip-message" role="status" hidden></p>
+    <section id="micPrompt" class="mic-prompt" aria-labelledby="micPromptTitle">
+      <div class="mic-prompt-heading">
+        <span class="mic-prompt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4m-4 0h8"/></svg></span>
+        <div><h2 id="micPromptTitle">First, enable your microphone</h2><p id="micPromptStatus" role="status">One quick step before your class begins.</p></div>
+        <span class="mic-ready-check" aria-hidden="true">✓</span>
+      </div>
+      <div class="mic-prompt-details"><div id="micPromptDetails">
+        <p>Allow microphone access so Noise Timer can measure your classroom’s volume. Audio is never recorded, saved, or uploaded.</p>
+        <button id="micBtn" class="primary">Enable Microphone <span aria-hidden="true">↗</span></button>
+        <p id="micHelp" class="mic-help">Choose Allow when your browser asks.</p>
+      </div></div>
+    </section>
+
+    <section class="hero-card">
+      <div class="status-line"><span id="micDot" class="dot"></span><span id="micStatus">Microphone off</span></div>
+      <div class="meter-wrap"><div id="meterFill" class="meter-fill"></div><div id="thresholdLine" class="threshold-line"></div></div>
+      <div class="meter-labels"><strong id="noiseLevel">0%</strong><span>Limit: <strong id="thresholdText">10%</strong></span></div>
+      <div id="warning" class="warning">Ready</div>
+      <div class="timer-area"><p>Total noise time</p><div id="timer" class="timer">00:00.0</div></div>
+      <div id="graceWrap" class="grace-wrap hidden">
+        <div class="grace-copy"><span>Noise above limit</span><strong id="graceText">0.0 / 0.0 sec</strong></div>
+        <div class="grace-track"><div id="graceFill" class="grace-fill"></div></div>
+      </div>
+    </section>
+
+    <section class="controls-card">
+      <div class="main-actions">
+        <button id="startBtn" class="success" disabled>Start Class</button>
+        <button id="pauseBtn" disabled>Pause</button>
+        <button id="endBtn" disabled>End Class</button>
+      </div>
+      <div class="settings-grid">
+        <label class="setting"><span>Noise limit</span><input id="threshold" type="range" min="10" max="100" value="10"><strong id="thresholdSetting">10%</strong></label>
+        <label class="setting"><span>Must stay loud for</span><input id="graceSeconds" type="range" min="0" max="5" value="0" step="0.5"><strong id="graceSetting">0.0 sec</strong></label>
+      </div>
+      <div class="secondary-actions"><button id="resetBtn" class="danger-outline">Reset Timer</button></div>
+    </section>
+
+    <section class="privacy-note"><strong>Privacy:</strong> Noise Timer measures sound level only. It does not record, save, or upload classroom audio.</section>
+  </main>
+
+  <dialog id="summaryDialog"><div class="dialog-card"><p class="eyebrow">CLASS ENDED</p><h2>Session Summary</h2><p>Total time above the noise limit:</p><div id="summaryTime" class="summary-time">00:00.0</div><p class="summary-support">If you encountered any issues, please email me at <a href="mailto:s29519@ilimcollege.vic.edu.au">s29519@ilimcollege.vic.edu.au</a>.</p><button id="closeSummary" class="primary" autofocus>Done</button></div></dialog>
+  <script src="landing.js"></script>
+  <script src="app.js"></script>
+  <script src="pip.js"></script>
+</body>
+</html>
